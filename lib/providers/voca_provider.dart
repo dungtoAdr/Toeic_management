@@ -1,0 +1,24 @@
+
+
+import 'package:api/models/vocabulary.dart';
+import 'package:api/services/api_service.dart';
+import 'package:flutter/material.dart';
+
+class VocaProvider extends ChangeNotifier{
+  List<Vocabulary> _vocas =[];
+  List<Vocabulary> get vocas => _vocas;
+  
+  
+  Future<void> fetchVocas(String id) async {
+    _vocas = await ApiService.fetchVocas(id);
+    notifyListeners();
+  }
+  
+  Future<bool> addVoca(Vocabulary voca) async {
+    bool success =await ApiService.addVoca(voca);
+    if (success) {
+      await fetchVocas(voca.topic_id);
+    }
+    return success;
+  }  
+}
