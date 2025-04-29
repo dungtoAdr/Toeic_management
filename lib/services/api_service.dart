@@ -70,7 +70,32 @@ class ApiService {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/add_voca.php'),
-        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(voca.toJson()),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error: $e');
+      return false;
+    }
+  }
+
+  static Future<bool> deleteVoca(String id) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/delete_voca.php'),
+      body: json.encode({'id': id}),
+    );
+    final jsonData = json.decode(response.body);
+    return jsonData['success'] == true;
+  }
+
+  static Future<bool> updateVoca(Vocabulary voca) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/update_voca.php'),
         body: jsonEncode(voca.toJson()),
       );
       if (response.statusCode == 200) {

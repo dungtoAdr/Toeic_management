@@ -1,5 +1,5 @@
 class Vocabulary {
-  final String id;
+  final String? id;
   final String word;
   final String pronunciation;
   final String meaning;
@@ -7,7 +7,7 @@ class Vocabulary {
   final String topic_id;
 
   Vocabulary({
-    required this.id,
+    this.id,
     required this.word,
     required this.pronunciation,
     required this.meaning,
@@ -18,9 +18,9 @@ class Vocabulary {
   factory Vocabulary.fromJson(Map<String, dynamic> json){
     return Vocabulary(id: json['id'],
         word: json['word'],
-        pronunciation: json['pronunciation'],
+        pronunciation: json['pronunciation'].toString(),
         meaning: json['meaning'],
-        audio_path: json['audio_path'],
+        audio_path: json['audio_path'].toString(),
         topic_id: json['topic_id']);
   }
 
@@ -28,9 +28,9 @@ class Vocabulary {
     return{
       'id':id,
       'word': word,
-      'pronunciation': pronunciation,
+      'pronunciation': pronunciation.toString(),
       'meaning': meaning,
-      'audio_path': audio_path,
+      'audio_path': audio_path.toString(),
       'topic_id' : topic_id
     };
   }

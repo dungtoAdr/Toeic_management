@@ -10,6 +10,8 @@ class VocaProvider extends ChangeNotifier{
   
   
   Future<void> fetchVocas(String id) async {
+    _vocas = [];
+    notifyListeners();
     _vocas = await ApiService.fetchVocas(id);
     notifyListeners();
   }
@@ -20,5 +22,21 @@ class VocaProvider extends ChangeNotifier{
       await fetchVocas(voca.topic_id);
     }
     return success;
-  }  
+  }
+
+  Future<bool> updateVoca(Vocabulary voca) async {
+    bool success =await ApiService.updateVoca(voca);
+    if (success) {
+      await fetchVocas(voca.topic_id);
+    }
+    return success;
+  }
+
+  Future<bool> deleteVoca(String id,String topic_id) async {
+    bool success = await ApiService.deleteVoca(id);
+    if(success){
+      await fetchVocas(topic_id);
+    }
+    return success;
+  }
 }
