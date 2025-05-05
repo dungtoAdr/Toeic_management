@@ -1,5 +1,7 @@
+import 'package:api/providers/question_provider.dart';
+import 'package:api/providers/session_provider.dart';
 import 'package:api/providers/topic_provider.dart';
-import 'package:api/providers/voca_provider.dart';
+import 'package:api/providers/vocabulary_provider.dart';
 import 'package:api/screens/auth_page.dart';
 import 'package:api/screens/home_page.dart';
 import 'package:api/screens/topic_page.dart';
@@ -13,7 +15,9 @@ void main() async{
   await Firebase.initializeApp();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => TopicProvider(),),
-    ChangeNotifierProvider(create: (context) => VocaProvider(),),
+    ChangeNotifierProvider(create: (context) => VocabularyProvider(),),
+    ChangeNotifierProvider(create: (context) => SessionProvider(),),
+    ChangeNotifierProvider(create: (context) => QuestionProvider(),)
   ],
   child: const MyApp(),));
 }

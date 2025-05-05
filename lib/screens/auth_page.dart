@@ -1,6 +1,5 @@
-import 'package:api/screens/topic_page.dart';
+import 'package:api/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
@@ -42,7 +41,7 @@ class _AuthPageState extends State<AuthPage> {
         }
         Navigator.of(
           context,
-        ).pushReplacement(MaterialPageRoute(builder: (context) => TopicPage()));
+        ).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text("Thanh Cong")));
@@ -118,23 +117,22 @@ class _AuthPageState extends State<AuthPage> {
                         return null;
                       },
                     ),
-                    if (!isLogin) ...[
-                      SizedBox(height: 20),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Confirm Password',
-                        ),
-                        obscureText: true,
-                        controller: confirmPasswordController,
-                        validator: (value) {
-                          if(value == null || value.isEmpty){
-                            return 'Please enter Confirm Password';
-                          }
-                          return null;
-                        },
+                    SizedBox(height: 20),
+                    !isLogin ?
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Confirm Password',
                       ),
-                    ],
+                      obscureText: true,
+                      controller: confirmPasswordController,
+                      validator: (value) {
+                        if(value == null || value.isEmpty){
+                          return 'Please enter Confirm Password';
+                        }
+                        return null;
+                      },
+                    ): SizedBox(height: 0,),
                   ],
                 ),
               ),

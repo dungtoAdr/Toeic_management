@@ -1,5 +1,5 @@
 import 'package:api/models/vocabulary.dart';
-import 'package:api/providers/voca_provider.dart';
+import 'package:api/providers/vocabulary_provider.dart';
 import 'package:api/services/api_service.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +35,10 @@ class _VocaPageState extends State<VocaPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<VocaProvider>(
+      Provider.of<VocabularyProvider>(
         context,
         listen: false,
-      ).fetchVocas(widget.id.toString());
+      ).fetchVocabularies(widget.id.toString());
     });
     // Đặt timer sau 5s
     Future.delayed(const Duration(seconds: 5), () {
@@ -82,7 +82,7 @@ class _VocaPageState extends State<VocaPage> {
     showDialog(
       context: context,
       builder: (context) {
-        final vocaProvider = Provider.of<VocaProvider>(context, listen: false);
+        final vocaProvider = Provider.of<VocabularyProvider>(context, listen: false);
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           title: Text(title_dialog),
@@ -177,7 +177,7 @@ class _VocaPageState extends State<VocaPage> {
                 if (id == null && word == null) {
                   if (_form_key.currentState!.validate()) {
                     _form_key.currentState!.save();
-                    bool success = await vocaProvider.addVoca(
+                    bool success = await vocaProvider.addVocabulary(
                       Vocabulary(
                         word: wordController.text,
                         pronunciation: pronunciationController.text,
@@ -194,7 +194,7 @@ class _VocaPageState extends State<VocaPage> {
                     }
                   }
                 } if(id != null && word == null){
-                  bool success = await vocaProvider.deleteVoca(id, topicIdController.text);
+                  bool success = await vocaProvider.deleteVocabulary(id, topicIdController.text);
                   if (success) {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -204,7 +204,7 @@ class _VocaPageState extends State<VocaPage> {
                 } if(id != null && word != null){
                   if (_form_key.currentState!.validate()) {
                     _form_key.currentState!.save();
-                    bool success = await vocaProvider.updateVoca(
+                    bool success = await vocaProvider.updateVocabulary(
                       Vocabulary(
                         id: idController.text,
                         word: wordController.text,
@@ -279,7 +279,7 @@ class _VocaPageState extends State<VocaPage> {
           SizedBox(width: 10),
         ],
       ),
-      body: Consumer<VocaProvider>(
+      body: Consumer<VocabularyProvider>(
         builder: (context, value, child) {
           return value.vocas.isEmpty
               ? Center(

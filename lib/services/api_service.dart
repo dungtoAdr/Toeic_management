@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:api/models/question.dart';
+import 'package:api/models/session.dart';
 import 'package:api/models/topic.dart';
 import 'package:api/models/vocabulary.dart';
 import 'package:http/http.dart' as http;
@@ -106,6 +108,40 @@ class ApiService {
     } catch (e) {
       print('Error: $e');
       return false;
+    }
+  }
+
+  //sessions
+  static Future<List<Session>> getSessions() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/practice_sessions.php'),
+    );
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      if (jsonData['success']) {
+        List list = jsonData['data'];
+        return list.map((e) => Session.fromJson(e)).toList();
+      } else {
+        throw Exception('Loi ${jsonData['message']}');
+      }
+    } else {
+      throw Exception('Loi ${response.statusCode}');
+    }
+  }
+
+  //questions
+  static Future<List<Question>> getQuestions() async {
+    final response = await http.get(Uri.parse('$baseUrl/get_questions.php'));
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      if (jsonData['success']) {
+        List list = jsonData['data'];
+        return list.map((e) => Question.fromJson(e)).toList();
+      } else {
+        throw Exception('Loi ${jsonData['message']}');
+      }
+    } else {
+      throw Exception('Loi ${response.statusCode}');
     }
   }
 }

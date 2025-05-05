@@ -1,4 +1,5 @@
 import 'package:api/screens/other_page.dart';
+import 'package:api/screens/question_page.dart';
 import 'package:api/screens/topic_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<Widget> _page = [
     TopicPage(),
+    QuestionPage(),
     OtherPage()
   ];
   @override
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
         }),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.topic),label: "Topics"),
+          BottomNavigationBarItem(icon: Icon(Icons.question_mark),label: "Questions"),
           BottomNavigationBarItem(icon: Icon(Icons.person),label: "Others"),
         ],
       ),

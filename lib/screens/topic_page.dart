@@ -1,4 +1,4 @@
-import 'package:api/providers/voca_provider.dart';
+import 'package:api/providers/vocabulary_provider.dart';
 import 'package:api/screens/auth_page.dart';
 import 'package:api/screens/voca_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';

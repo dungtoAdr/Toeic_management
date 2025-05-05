@@ -25,7 +25,7 @@ class Vocabulary {
   }
 
   Map<String, dynamic> toJson(){
-    return{
+    return {
       'id':id,
       'word': word,
       'pronunciation': pronunciation.toString(),
