@@ -144,4 +144,47 @@ class ApiService {
       throw Exception('Loi ${response.statusCode}');
     }
   }
+
+  static Future<bool> addQuestion(Question question) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/add_question.php'),
+        body: jsonEncode(question.toJson()),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error: $e');
+      return false;
+    }
+  }
+
+  static Future<bool> updateQuestion(Question question) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/update_question.php'),
+        body: jsonEncode(question.toJson()),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error: $e');
+      return false;
+    }
+  }
+
+  static Future<bool> deleteQuestion(String id) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/delete_question.php'),
+      body: json.encode({'id': id}),
+    );
+    final jsonData = json.decode(response.body);
+    return jsonData['success'] == true;
+  }
 }

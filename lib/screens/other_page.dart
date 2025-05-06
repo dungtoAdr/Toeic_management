@@ -71,7 +71,9 @@ class _OtherPageState extends State<OtherPage> {
           });
 
           List<String> parts = totalCorrect.keys.toList();
-
+          if (selectedUserId == null && userIds.isNotEmpty){
+            selectedUserId = userIds[0];
+          }
           return Column(
             children: [
               Padding(

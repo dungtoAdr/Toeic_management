@@ -13,4 +13,29 @@ class QuestionProvider extends ChangeNotifier {
     _questions = await ApiService.getQuestions();
     notifyListeners();
   }
+
+  Future<bool> addQuestion(Question question) async {
+    bool success = await ApiService.addQuestion(question);
+    if (success) {
+      await getQuestions();
+    }
+    return success;
+  }
+
+  Future<bool> updateQuestion(Question question) async {
+    bool success = await ApiService.updateQuestion(question);
+    if (success) {
+      await getQuestions();
+    }
+    return success;
+  }
+
+  Future<bool> deleteQuestion(String id) async {
+    bool success = await ApiService.deleteQuestion(id);
+    if(success){
+      await getQuestions();
+    }
+    return success;
+  }
+
 }

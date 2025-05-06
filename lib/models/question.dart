@@ -46,6 +46,7 @@ class Question {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'question_text': question_text,
       'option_a': option_a,
       'option_b': option_b,
